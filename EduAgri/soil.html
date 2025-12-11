@@ -1,0 +1,209 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soil Science - EduAgri</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes slideDown { from { opacity:0; transform:translateY(-10px); } to { opacity:1; transform:translateY(0); } }
+    
+    body { font-family: "Poppins", sans-serif; margin:0; background:#f9f9f9; color:#333; }
+    header { 
+      background:#2d6a4f; color:white; padding:15px 40px; display:flex; justify-content:space-between; 
+      align-items:center; position:sticky; top:0; z-index:100; box-shadow:0 4px 12px rgba(0,0,0,0.15);
+    }
+    header h1 { margin:0; font-size:1.5rem; animation:fadeIn 0.5s ease; }
+    nav { position:relative; display:flex; align-items:center; }
+    nav a { 
+      color:white; margin-left:20px; text-decoration:none; font-weight:500; 
+      transition:all 0.3s ease;
+    }
+    nav a:hover { color:#ffb703; transform:scale(1.05); }
+    
+    /* Dropdown */
+    .dropdown { display:inline-block; position:relative; }
+    .dropdown-content {
+      display:none; position:absolute; background:white; min-width:180px; 
+      box-shadow:0px 8px 16px rgba(0,0,0,0.3); border-radius:6px; z-index:1000; 
+      animation:slideDown 0.3s ease;
+    }
+    .dropdown-content.show { display:block; }
+    .dropdown-content a { 
+      color:#2d6a4f; padding:12px 15px; text-decoration:none; display:block; font-weight:500; 
+      transition:all 0.2s ease;
+    }
+    .dropdown-content a:hover { background:#d8f3dc; transform:translateX(4px); }
+
+    .hero { text-align: center; color: white; padding:120px 20px; animation:fadeIn 0.7s ease; background-position: center; background-repeat: no-repeat; background-size: cover; }
+    .hero h2 { font-size:2.5rem; margin-bottom:10px; position: relative; z-index:1; animation:fadeIn 0.8s ease; }
+    .hero p { font-size:1.2rem; margin-bottom:15px; position: relative; z-index:1; animation:fadeIn 0.9s ease; }
+    .hero button { 
+      background:#ffb703; color:#333; border:none; padding:12px 25px; font-size:1rem; 
+      font-weight:bold; border-radius:8px; cursor:pointer; position:relative; z-index:1; 
+      transition:all 0.3s ease; animation:fadeIn 1s ease;
+    }
+    .hero button:hover { background:#ff9500; transform:translateY(-3px); box-shadow:0 6px 16px rgba(0,0,0,0.25); }
+
+    section { padding:60px 40px; text-align:center; }
+    .card { 
+      background:white; padding:20px; border-radius:12px; box-shadow:0px 4px 10px rgba(0,0,0,0.1); 
+      margin-bottom:30px; max-width:800px; margin-left:auto; margin-right:auto; text-align:left; 
+      animation:fadeIn 0.6s ease-in-out; transition:all 0.3s ease;
+    }
+    .card:hover { transform:translateY(-8px); box-shadow:0px 12px 24px rgba(0,0,0,0.15); }
+    .card img { width:100%; border-radius:12px; margin-top:10px; transition:transform 0.3s ease; }
+    .card:hover img { transform:scale(1.05); }
+    .btn-secondary { 
+      background:#219ebc; color:white; border:none; padding:10px 20px; border-radius:6px; 
+      cursor:pointer; margin-top:10px; text-decoration:none; display:inline-block; 
+      transition:all 0.3s ease; font-weight:500;
+    }
+    .btn-secondary:hover { background:#1a7aa0; transform:translateY(-2px); box-shadow:0 4px 8px rgba(0,0,0,0.2); }
+    footer { background:#2d6a4f; color:white; text-align:center; padding:30px 20px; margin-top:40px; animation:fadeIn 0.6s ease; }
+    iframe { width:100%; max-width:560px; height:315px; margin-top:10px; border:none; }
+    /* YouTube thumbnail preview styles */
+    .youtube { position:relative; width:100%; max-width:560px; height:315px; margin-top:10px; cursor:pointer; overflow:hidden; border-radius:8px; background:#000; }
+    .youtube-thumb { width:100%; height:100%; object-fit:cover; display:block; }
+    .youtube-play { position:absolute; left:50%; top:50%; transform:translate(-50%, -50%); background:rgba(0,0,0,0.6); color:#fff; border:none; font-size:2rem; width:72px; height:72px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all 0.3s ease; }
+    .youtube-play:hover { background:rgba(255,0,0,0.8); transform:translate(-50%, -50%) scale(1.1); }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>🌾 EduAgri</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <div class="dropdown">
+        <a href="javascript:void(0)" onclick="toggleDropdown(event)">Category ▼</a>
+        <div class="dropdown-content" id="courses-dropdown">
+          <a href="soil.html">Soil Science</a>
+          <a href="irrigation.html">Irrigation Techniques</a>
+          <a href="crop.html">Crop Management</a>
+          <a href="smart.html">Smart Farming</a>
+          <a href="livestock.html">Livestock</a>
+        </div>
+      </div>
+      <a href="community.html">Community</a>
+      <a href="about.html">About</a>
+      <a href="farmers.html">Farmers</a>
+      <a href="customers.html">Customers</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <div class="hero" style="background: linear-gradient(rgba(45,106,79,0.7), rgba(45,106,79,0.7)), url('soil1.png') center/cover no-repeat;">
+    <h2>Soil Science</h2>
+    <p>Learn the science of soil, its management, and importance for sustainable agriculture.</p>
+  </div>
+
+  <!-- Content Section -->
+  <section id="topics">
+    <div class="card">
+      <h3>Introduction</h3>
+      <p>
+        Soil science studies soil as a natural resource, including its formation, classification, mapping, and properties—physical, chemical, and biological. 
+        Understanding soil is crucial for sustainable crop production and environmental management.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Importance of Soil Science</h3>
+      <ul>
+        <li>Provides essential nutrients, water, and support for plants.</li>
+        <li>Maintains ecological balance by filtering pollutants.</li>
+        <li>Acts as a medium for microbial activity and organic matter decomposition.</li>
+        <li>Prevents soil erosion and degradation when managed properly.</li>
+        <li>Plays a vital role in the water cycle and carbon storage.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Applications</h3>
+      <ul>
+        <li>Soil Testing: Determines nutrient content, pH, and salinity.</li>
+        <li>Fertilizer Management: Guides proper nutrient application.</li>
+        <li>Soil Conservation: Prevents erosion and maintains fertility.</li>
+        <li>Irrigation Planning: Ensures efficient water usage based on soil type.</li>
+        <li>Environmental Studies: Helps in pollution control and waste management.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Conclusion</h3>
+      <p>
+        Soil is a non-renewable resource that requires careful management to ensure agricultural productivity and environmental protection.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Illustration</h3>
+      <img src="soil4.webp" alt="Soil layers">
+    </div>
+
+    <div class="card">
+      <h3>Video Lecture</h3>
+      <div class="youtube" data-id="zD3zaootOkQ" aria-label="Soil Science Lecture video">
+        <button class="youtube-play" aria-hidden="true">▶</button>
+        <img class="youtube-thumb" src="https://img.youtube.com/vi/zD3zaootOkQ/hqdefault.jpg" alt="Soil Science Lecture thumbnail">
+      </div>
+    </div>
+
+    
+  </section>
+
+  <footer>
+    <p>© 2025 EduAgri. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    // Dropdown toggle
+    function toggleDropdown(event) {
+      event.preventDefault();
+      const dropdown = document.getElementById('courses-dropdown');
+      dropdown.classList.toggle('show');
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+      const dropdown = document.querySelector('.dropdown');
+      if (dropdown && !dropdown.contains(event.target)) {
+        document.getElementById('courses-dropdown').classList.remove('show');
+      }
+    });
+
+    // Replace thumbnail with iframe when clicked
+    (function () {
+      function createIframe(videoId) {
+        var src = 'https://www.youtube.com/embed/' + videoId + '?rel=0&modestbranding=1&playsinline=1&autoplay=1';
+        var iframe = document.createElement('iframe');
+        iframe.setAttribute('src', src);
+        iframe.setAttribute('title', 'Soil Science Lecture');
+        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+        iframe.setAttribute('allowfullscreen', '');
+        iframe.style.width = '100%';
+        iframe.style.height = '100%';
+        iframe.style.border = '0';
+        return iframe;
+      }
+
+      document.addEventListener('click', function (e) {
+        var target = e.target;
+        // if click is inside .youtube container
+        var yu = target.closest && target.closest('.youtube');
+        if (yu) {
+          var id = yu.getAttribute('data-id');
+          if (!id) return;
+          var iframe = createIframe(id);
+          yu.parentNode.replaceChild(iframe, yu);
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>

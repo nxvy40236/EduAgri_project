@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crop Management - EduAgri</title>
+  <style>
+    body { font-family: "Poppins", sans-serif; margin:0; background:#f9f9f9; color:#333; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes slideDown { from { opacity:0; transform:translateY(-10px); } to { opacity:1; transform:translateY(0); } }
+    header { 
+      background:#2d6a4f; color:white; padding:15px 40px; display:flex; justify-content:space-between; 
+      align-items:center; position:sticky; top:0; z-index:100; box-shadow:0 4px 12px rgba(0,0,0,0.15);
+    }
+    header h1 { margin:0; font-size:1.5rem; animation:fadeIn 0.5s ease; }
+    nav { position:relative; display:flex; align-items:center; }
+    nav a { 
+      color:white; margin-left:20px; text-decoration:none; font-weight:500; 
+      transition:all 0.3s ease;
+    }
+    nav a:hover { color:#ffb703; transform:scale(1.05); }
+    .dropdown { display:inline-block; position:relative; }
+    .dropdown-content {
+      display:none; position:absolute; background:white; min-width:180px; 
+      box-shadow:0px 8px 16px rgba(0,0,0,0.3); border-radius:6px; z-index:1000; 
+      animation:slideDown 0.3s ease;
+    }
+    .dropdown-content.show { display:block; }
+    .dropdown-content a { 
+      color:#2d6a4f; padding:12px 15px; text-decoration:none; display:block; font-weight:500; 
+      transition:all 0.2s ease;
+    }
+    .dropdown-content a:hover { background:#d8f3dc; transform:translateX(4px); }
+
+    .hero { text-align: center; color: white; padding:120px 20px; animation:fadeIn 0.7s ease; background-position: center; background-repeat: no-repeat; background-size: cover; }
+    .hero h2 { font-size:2.5rem; margin-bottom:10px; position: relative; z-index:1; }
+    .hero p { font-size:1.2rem; margin-bottom:15px; position: relative; z-index:1; }
+    .hero button { 
+      background:#ffb703; color:#333; border:none; padding:12px 25px; font-size:1rem; 
+      font-weight:bold; border-radius:8px; cursor:pointer; position:relative; z-index:1; 
+      transition:all 0.3s ease;
+    }
+    .hero button:hover { background:#ff9500; transform:translateY(-3px); box-shadow:0 6px 16px rgba(0,0,0,0.25); }
+
+    section { padding:60px 40px; text-align:center; }
+    .card { 
+      background:white; padding:20px; border-radius:12px; box-shadow:0px 4px 10px rgba(0,0,0,0.1); 
+      margin-bottom:30px; max-width:800px; margin-left:auto; margin-right:auto; text-align:left; 
+      animation:fadeIn 0.6s ease-in-out; transition:all 0.3s ease;
+    }
+    .card:hover { transform:translateY(-8px); box-shadow:0px 12px 24px rgba(0,0,0,0.15); }
+    .card img { width:100%; border-radius:12px; margin-top:10px; transition:transform 0.3s ease; }
+    .card:hover img { transform:scale(1.05); }
+    .btn-secondary { 
+      background:#219ebc; color:white; border:none; padding:10px 20px; border-radius:6px; 
+      cursor:pointer; margin-top:10px; text-decoration:none; display:inline-block; 
+      transition:all 0.3s ease; font-weight:500;
+    }
+    .btn-secondary:hover { background:#1a7aa0; transform:translateY(-2px); box-shadow:0 4px 8px rgba(0,0,0,0.2); }
+    footer { background:#2d6a4f; color:white; text-align:center; padding:30px 20px; margin-top:40px; animation:fadeIn 0.6s ease; }
+    iframe { width:100%; max-width:560px; height:315px; margin-top:10px; border:none; display:block; margin-left:auto; margin-right:auto; }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>🌾 EduAgri</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <div class="dropdown">
+        <a href="javascript:void(0)" onclick="toggleDropdown(event)">Category ▼</a>
+        <div class="dropdown-content" id="courses-dropdown">
+          <a href="soil.html">Soil Science</a>
+          <a href="irrigation.html">Irrigation Techniques</a>
+          <a href="crop.html">Crop Management</a>
+          <a href="smart.html">Smart Farming</a>
+          <a href="livestock.html">Livestock</a>
+        </div>
+      </div>
+      <a href="community.html">Community</a>
+      <a href="about.html">About</a>
+      <a href="farmers.html">Farmers</a>
+      <a href="customers.html">Customers</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <div class="hero" style="background: linear-gradient(rgba(45,106,79,0.7), rgba(45,106,79,0.7)), url('crop_man2.webp') center/cover no-repeat;">
+    <h2>Crop Management</h2>
+    <p>Scientific planning, growing, and harvesting to maximize productivity and maintain soil health.</p>
+  </div>
+
+  <!-- Content Section -->
+  <section id="content">
+    <div class="card">
+      <h3>Introduction</h3>
+      <p>
+        Crop management involves the scientific planning, growing, and harvesting of crops. 
+        It ensures maximum productivity while maintaining soil health and ecological balance.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Key Aspects of Crop Management</h3>
+      <ul>
+        <li><strong>Soil Preparation:</strong> Tilling, plowing, and leveling for proper seedbed.</li>
+        <li><strong>Seed Selection:</strong> Choosing high-yield, pest-resistant varieties.</li>
+        <li><strong>Nutrient Management:</strong> Using organic and chemical fertilizers appropriately.</li>
+        <li><strong>Irrigation Scheduling:</strong> Providing water at the right time.</li>
+        <li><strong>Pest and Weed Control:</strong> Applying pesticides and manual weeding.</li>
+        <li><strong>Harvesting:</strong> Timely harvesting to avoid crop loss.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Advanced Techniques</h3>
+      <ul>
+        <li>Crop rotation and intercropping to maintain soil fertility.</li>
+        <li>Use of biopesticides and organic farming for sustainability.</li>
+        <li>Adoption of mechanized tools for efficiency.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Conclusion</h3>
+      <p>
+        Effective crop management ensures food security, improves farmer income, and contributes to sustainable agricultural development.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Illustration</h3>
+      <img src="cropill2.webp" alt="Crop field illustration">
+    </div>
+
+    <div class="card">
+      <h3>Video Lecture</h3>
+      <!-- ✅ Correct YouTube Embed Link -->
+      <iframe src="https://www.youtube.com/embed/DFH_yfbUJWY" allowfullscreen></iframe>
+    </div>
+
+  </section>
+
+  <footer>
+    <p>© 2025 EduAgri. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    function toggleDropdown(event) {
+      event.preventDefault();
+      const dropdown = document.getElementById('courses-dropdown');
+      dropdown.classList.toggle('show');
+    }
+    document.addEventListener('click', function(event) {
+      const dropdown = document.querySelector('.dropdown');
+      if (dropdown && !dropdown.contains(event.target)) {
+        document.getElementById('courses-dropdown').classList.remove('show');
+      }
+    });
+  </script>
+
+</body>
+</html>

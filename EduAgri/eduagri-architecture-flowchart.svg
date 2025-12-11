@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="10" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 L2,5 z" fill="#333" />
+    </marker>
+    <style>
+      .box { fill:#ffffff; stroke:#2d6a4f; stroke-width:2; rx:8; }
+      .title { font: bold 16px 'Poppins', sans-serif; fill:#2d6a4f; }
+      .text { font: 13px 'Poppins', sans-serif; fill:#333333; }
+      .small { font: 12px 'Poppins', sans-serif; fill:#444444; }
+      .note { font: italic 12px 'Poppins', sans-serif; fill:#666666; }
+      .bg { fill:#f9f9f9; }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg" />
+
+  <!-- Browser / User -->
+  <g transform="translate(40,120)">
+    <rect x="0" y="0" width="180" height="90" class="box" />
+    <text x="12" y="26" class="title">User / Browser</text>
+    <text x="12" y="48" class="text">- Opens pages</text>
+    <text x="12" y="66" class="text">- Holds JWT (localStorage)</text>
+  </g>
+
+  <!-- Static Frontend -->
+  <g transform="translate(260,40)">
+    <rect x="0" y="0" width="300" height="120" class="box" />
+    <text x="14" y="26" class="title">Static Frontend</text>
+    <text x="14" y="48" class="text">index.html, login.html, farmers.html</text>
+    <text x="14" y="66" class="text">Served by local server or static host</text>
+  </g>
+
+  <!-- API Server -->
+  <g transform="translate(620,40)">
+    <rect x="0" y="0" width="320" height="140" class="box" />
+    <text x="14" y="26" class="title">API Server (Node / Express)</text>
+    <text x="14" y="48" class="text">- JWT auth middleware</text>
+    <text x="14" y="66" class="text">- Endpoints: /api/register, /api/login</text>
+    <text x="14" y="86" class="text">/api/enroll, /api/enrollments, /api/orders</text>
+  </g>
+
+  <!-- Database -->
+  <g transform="translate(620,230)">
+    <rect x="0" y="0" width="220" height="100" class="box" />
+    <text x="12" y="26" class="title">Database (SQLite)</text>
+    <text x="12" y="48" class="text">- users, enrollments, orders</text>
+    <text x="12" y="66" class="text">- Persistent demo storage</text>
+  </g>
+
+  <!-- Assets / Storage -->
+  <g transform="translate(960,230)">
+    <rect x="0" y="0" width="200" height="80" class="box" />
+    <text x="12" y="26" class="title">Assets / Images</text>
+    <text x="12" y="48" class="text">Local files or S3</text>
+  </g>
+
+  <!-- Arrows -->
+  <line x1="220" y1="165" x2="260" y2="100" stroke="#333" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="170" y="155" class="small">GET HTML / JS / CSS</text>
+
+  <line x1="200" y1="140" x2="620" y2="120" stroke="#333" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="350" y="120" class="small">POST /api/login, /api/register (JSON)</text>
+
+  <line x1="940" y1="160" x2="940" y2="230" stroke="#333" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="860" y="190" class="small">API → DB (SQL)</text>
+
+  <line x1="940" y1="160" x2="980" y2="250" stroke="#333" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="860" y="220" class="small">API → Assets</text>
+
+  <!-- JWT storage arrow -->
+  <line x1="160" y1="95" x2="360" y2="95" stroke="#2d6a4f" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="210" y="85" class="small">stores JWT (localStorage)</text>
+
+  <!-- Enrollment flow arrow -->
+  <line x1="470" y1="150" x2="620" y2="110" stroke="#333" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="520" y="140" class="small">POST /api/enroll</text>
+
+  <!-- Notes box -->
+  <g transform="translate(40,360)">
+    <rect x="0" y="0" width="1120" height="160" fill="#fff8e1" stroke="#f0c36d" rx="8" />
+    <text x="12" y="26" class="title">Notes & Security</text>
+    <text x="12" y="52" class="note">- Passwords hashed with bcrypt before storing in DB</text>
+    <text x="12" y="72" class="note">- JWT returned by /api/login and sent in Authorization: Bearer header for protected requests</text>
+    <text x="12" y="92" class="note">- Use HTTPS & proper CORS settings in production</text>
+    <text x="12" y="112" class="note">- For production, consider Postgres/MySQL and hosting for static assets</text>
+  </g>
+
+  <!-- Legend -->
+  <g transform="translate(40,540)">
+    <rect x="0" y="0" width="1120" height="140" fill="#eef7ff" stroke="#9fc5ff" rx="8" />
+    <text x="12" y="26" class="title">Legend</text>
+    <text x="12" y="50" class="small">Browser: User agent running the frontend</text>
+    <text x="12" y="72" class="small">Static Frontend: HTML/CSS/JS served to browser</text>
+    <text x="12" y="94" class="small">API Server: Node/Express handling auth and data</text>
+    <text x="12" y="116" class="small">Database / Storage: Persistent data and assets</text>
+  </g>
+
+</svg>
