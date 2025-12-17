@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agriculture E-Learning</title>
+  <style>
+    :root {
+      --primary: #2d6a4f;
+      --primary-dark: #1b4332;
+      --secondary: #d8f3dc;
+      --accent: #ffb703;
+      --text: #333;
+      --bg: #f0f7f4;
+      --card-bg: #ffffff;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    header {
+      background: rgba(45, 106, 79, 0.95);
+      backdrop-filter: blur(10px);
+      color: white;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    nav a {
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s;
+    }
+
+    nav a:hover {
+      color: white;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      position: absolute;
+      top: calc(100% + 15px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      color: var(--text);
+      min-width: 220px;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+      padding: 8px 0;
+      display: none;
+      overflow: hidden;
+      animation: slideDown 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+    }
+
+    .dropdown-content a {
+      display: block;
+      padding: 12px 20px;
+      color: var(--text);
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .dropdown-content a:hover {
+      background: var(--secondary);
+      color: var(--primary);
+    }
+
+    .dropdown-content.show {
+      display: block;
+    }
+
+    .hero {
+      background: linear-gradient(rgba(45, 106, 79, 0.7), rgba(45, 106, 79, 0.7)), url("https://images.unsplash.com/photo-1501004318641-b39e6451bec6") center/cover no-repeat;
+      color: white;
+      text-align: center;
+      padding: 140px 20px 100px;
+      margin-bottom: 0px;
+      animation: fadeIn 0.7s ease;
+    }
+
+    .hero h2 {
+      font-size: 2.5rem;
+      animation: fadeIn 0.8s ease;
+      font-weight: 600;
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 10px auto 30px;
+    }
+
+    .hero button {
+      background: var(--accent);
+      color: var(--text);
+      border: none;
+      padding: 14px 30px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      animation: fadeIn 1s ease;
+      box-shadow: 0 4px 15px rgba(255, 183, 3, 0.3);
+    }
+
+    .hero button:hover {
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 10px 25px rgba(255, 183, 3, 0.5);
+    }
+
+    section {
+      padding: 80px 20px;
+      text-align: center;
+      max-width: 98%;
+      /* Extended width as requested */
+      margin: 0 auto;
+    }
+
+    section h2 {
+      font-size: 1.8rem;
+      margin-bottom: 40px;
+      color: var(--primary);
+      position: relative;
+      display: inline-block;
+    }
+
+    section h2::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: var(--accent);
+      margin: 10px auto 0;
+      border-radius: 2px;
+    }
+
+    .courses {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
+      padding: 0 20px;
+    }
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      /* Force 5 in a line */
+      gap: 15px;
+      margin-top: 30px;
+      padding: 0 20px;
+    }
+
+    @media (max-width: 900px) {
+      .categories {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      }
+    }
+
+    .card {
+      background: var(--card-bg);
+      padding: 24px;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      animation: fadeIn 0.6s ease-out both;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      text-align: left;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Specific styles for category cards to make them smaller */
+    .categories .card {
+      padding: 10px;
+      /* Reduced further */
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      min-height: 80px;
+      /* Thinner */
+    }
+
+    .categories .card h3 {
+      font-size: 0.95rem;
+      margin: 0;
+      text-align: center;
+    }
+
+    /* Ensure course images match dimensions */
+    /* Ensure course images match dimensions */
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 12px;
+      transition: transform 0.3s ease;
+      margin-bottom: 16px;
+    }
+
+    .card:hover img {
+      transform: scale(1.03);
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      margin: 0 0 10px 0;
+      color: var(--primary-dark);
+      font-weight: 600;
+    }
+
+
+
+
+
+    .card h3 {
+      margin-top: 0;
+    }
+
+    footer {
+      background: #2d6a4f;
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+      margin-top: 40px;
+      animation: fadeIn 0.6s ease;
+    }
+
+    .special-courses {
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .special-courses h3 {
+      margin-bottom: 20px;
+    }
+
+    .special-courses div {
+      margin: 15px 0;
+    }
+
+    .special-courses button {
+      background: #e76f51;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+
+    .special-courses button:hover:not(:disabled) {
+      background: #d65a3b;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .course-content {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 16px;
+      padding: 16px;
+      background: #f8f9fa;
+      border-radius: 12px;
+      flex-grow: 1;
+    }
+
+    .course-desc {
+      color: #555;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .course-more {
+      background: transparent;
+      border: none;
+      color: var(--primary);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 0;
+      text-decoration: none;
+      align-self: flex-start;
+    }
+
+    .course-more:hover {
+      text-decoration: underline;
+    }
+
+    .btn-secondary {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: auto;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    .btn-secondary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(45, 106, 79, 0.25);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>🌾 EduAgri</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <div class="dropdown">
+        <a href="javascript:void(0)" onclick="toggleDropdown()">Category ▼</a>
+        <div class="dropdown-content" id="courses-dropdown">
+          <a href="soil.html">Soil Science</a>
+          <a href="irrigation.html">Irrigation Techniques</a>
+          <a href="crop.html">Crop Management</a>
+          <a href="smart.html">Smart Farming</a>
+          <a href="livestock.html">Livestock</a>
+        </div>
+      </div>
+      <a href="community.html">Community</a>
+      <a href="about.html">About</a>
+      <a href="farmers.html" id="nav-farmers">Farmers</a>
+      <a href="customers.html" id="nav-customers">Customers</a>
+      <a href="my-courses.html">My Courses</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <h2>Learn, Grow, Harvest Knowledge</h2>
+    <p>Practical courses in modern and traditional farming.</p>
+    <button onclick="document.getElementById('categories').scrollIntoView({behavior: 'smooth'})">Browse Courses</button>
+  </div>
+
+
+
+  <!-- Categories -->
+  <section id="categories">
+    <h2>Explore Categories</h2>
+    <div class="categories">
+      <div class="card" onclick="location.href='soil.html'">
+        <h3>🌱 Soil Science</h3>
+      </div>
+      <div class="card" onclick="location.href='irrigation.html'">
+        <h3>💧 Irrigation Techniques</h3>
+      </div>
+      <div class="card" onclick="location.href='crop.html'">
+        <h3>🌾 Crop Management</h3>
+      </div>
+      <div class="card" onclick="location.href='smart.html'">
+        <h3>🤖 Smart Farming</h3>
+      </div>
+      <div class="card" onclick="location.href='livestock.html'">
+        <h3>🐄 Livestock</h3>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Courses -->
+  <section>
+    <h2>Featured Courses</h2>
+    <div class="courses">
+      <div class="card">
+        <img src="Org_farming.jpg" width="100%">
+        <h3>Organic Farming 101</h3>
+        <div class="course-content">
+          <p class="course-desc">Learn the basics of sustainable farming practices including composting... <button
+              class="course-more"
+              onclick="toggleDescription(this, 'Learn the basics of sustainable farming practices including composting, crop rotation, and natural pest management. Master techniques to build healthy soil while maintaining environmental balance.')">More</button>
+          </p>
+        </div>
+        <button class="btn-secondary" onclick="enroll(this)">Enroll</button>
+      </div>
+      <div class="card">
+        <img src="istock_smart-farming.jpg" width="100%">
+        <h3>IoT in Agriculture</h3>
+        <div class="course-content">
+          <p class="course-desc">Use sensors and data analytics to optimize yield and reduce waste... <button
+              class="course-more"
+              onclick="toggleDescription(this, 'Use sensors and data analytics to optimize yield and reduce waste. Learn to integrate IoT technologies for real-time monitoring of soil, water, and crop health.')">More</button>
+          </p>
+        </div>
+        <button class="btn-secondary" onclick="enroll(this)">Enroll</button>
+      </div>
+      <div class="card">
+        <img src="smart_irrigation.jpg" width="100%">
+        <h3>Smart Irrigation</h3>
+        <div class="course-content">
+          <p class="course-desc">Save water and boost productivity through precision irrigation techniques... <button
+              class="course-more"
+              onclick="toggleDescription(this, 'Save water and boost productivity through precision irrigation techniques. Discover drip systems, sensor-based scheduling, and water conservation strategies.')">More</button>
+          </p>
+        </div>
+        <button class="btn-secondary" onclick="enroll(this)">Enroll</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Special Courses Section -->
+  <section>
+    <h2>Special Courses</h2>
+    <div class="courses">
+      <div class="card">
+        <img src="agro1.jpg" width="100%">
+        <h3>Fundamentals of Agronomy</h3>
+        <div class="course-content">
+          <p class="course-desc">Learn soil-plant relationships, nutrient management, and crop planning... <button
+              class="course-more"
+              onclick="toggleDescription(this, 'Learn soil-plant relationships, nutrient management, and crop planning for better yields. Develop expertise in crop science and sustainable farming methods.')">More</button>
+          </p>
+        </div>
+        <button class="btn-secondary" onclick="enroll(this)">Enroll</button>
+      </div>
+
+      <div class="card">
+        <img src="horti.jpg" width="100%">
+        <h3>Principles of Horticulture</h3>
+        <div class="course-content">
+          <p class="course-desc">Understand fruit, vegetable, and ornamental crop production with practical... <button
+              class="course-more"
+              onclick="toggleDescription(this, 'Understand fruit, vegetable, and ornamental crop production with practical guidance. Master techniques for high-quality produce and garden management.')">More</button>
+          </p>
+        </div>
+        <button class="btn-secondary" onclick="enroll(this)">Enroll</button>
+      </div>
+
+      <div class="card">
+        <img src="plant_breed.jpg" width="100%">
+        <h3>Plant Breeding and Genetics</h3>
+        <div class="course-content">
+          <p class="course-desc">Explore techniques for developing new plant varieties and improving crop... <button
+              class="course-more"
+              onclick="toggleDescription(this, 'Explore techniques for developing new plant varieties and improving crop traits. Learn molecular breeding and trait selection methodologies.')">More</button>
+          </p>
+        </div>
+        <button class="btn-secondary" onclick="enroll(this)">Enroll</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+
+
+  <footer>
+    <p>© 2025 EduAgri. All Rights Reserved.</p>
+  </footer>
+
+  <script src="api.js"></script>
+  <script>
+    // Dropdown toggle
+    function toggleDropdown() {
+      const dropdown = document.getElementById('courses-dropdown');
+      dropdown.classList.toggle('show');
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function (event) {
+      const dropdown = document.querySelector('.dropdown');
+      if (dropdown && !dropdown.contains(event.target)) {
+        document.getElementById('courses-dropdown').classList.remove('show');
+      }
+    });
+
+    // Update button states based on enrollments from backend
+    function updateEnrollmentButtons() {
+      if (!isAuthenticated()) return;
+
+      getEnrollments()
+        .then(enrollments => {
+          const enrolledTitles = enrollments.map(c => c.course_title);
+          document.querySelectorAll('.btn-secondary').forEach(btn => {
+            const cardH3 = btn.closest('.card').querySelector('h3');
+            if (cardH3) {
+              const isEnrolled = enrolledTitles.includes(cardH3.textContent.trim());
+              if (isEnrolled) {
+                btn.innerText = 'Enrolled ✅';
+                btn.style.background = '#27ae60';
+                btn.disabled = true;
+              }
+            }
+          });
+        })
+        .catch(err => console.log('Error fetching enrollments for buttons', err));
+    }
+
+    // Enroll in a course using AJAX
+    function enroll(button) {
+      if (!isAuthenticated()) {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      var card = button.closest('.card');
+      if (!card) return;
+      var titleEl = card.querySelector('h3');
+      var imgEl = card.querySelector('img');
+      var title = titleEl ? titleEl.textContent.trim() : 'Course';
+      var img = imgEl ? imgEl.getAttribute('src') : '';
+
+      // If already enrolled/disabled, do nothing (safety check)
+      if (button.disabled || button.innerText.includes('Enrolled')) {
+        return;
+      }
+
+      button.disabled = true;
+      button.innerText = 'Enrolling...';
+
+      enrollCourse(title, img)
+        .then(response => {
+          button.innerText = 'Enrolled ✅';
+          button.style.background = '#27ae60';
+          button.disabled = true; // Keep disabled as per request
+          // No need to renderEnrolled() section anymore
+        })
+        .catch(error => {
+          button.innerText = 'Enroll';
+          button.disabled = false;
+          // Only show alert if it's a real error, not just 'already enrolled' which shouldn't happen due to UI state
+          console.error(error);
+          alert('Error: ' + error.message);
+        });
+    }
+
+
+
+
+    // renderEnrolled function removed
+
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function () {
+      // Update button states based on enrollments from backend
+      if (isAuthenticated()) {
+        updateEnrollmentButtons();
+      }
+    });
+
+    // Toggle course description expand/collapse
+    function toggleDescription(btn, fullText) {
+      const p = btn.parentElement;
+      if (btn.textContent === 'More') {
+        // Show full text without the button text inside, then append Less button
+        // Actually, simplest is to replace the text content of P node, preserving the button?
+        // Let's just update the innerHTML safely
+        p.innerHTML = fullText + ' <button class="course-more" onclick="toggleDescription(this, \'' + fullText.replace(/'/g, "\\'") + '\')">Less</button>';
+      } else {
+        // Truncate to first 12 words or ~80 chars
+        const truncated = fullText.substring(0, 80) + '...';
+        p.innerHTML = truncated + ' <button class="course-more" onclick="toggleDescription(this, \'' + fullText.replace(/'/g, "\\'") + '\')">More</button>';
+      }
+    }
+
+    // Conditionally hide/show Farmers and Customers based on user role
+    // Always show Farmers and Customers links
+    const farmersLink = Array.from(document.querySelectorAll('nav a')).find(a => a.textContent === 'Farmers');
+    const customersLink = Array.from(document.querySelectorAll('nav a')).find(a => a.textContent === 'Customers');
+    if (farmersLink) farmersLink.style.display = 'inline-block';
+    if (customersLink) customersLink.style.display = 'inline-block';
+  </script>
+
+</body>
+
+</html>

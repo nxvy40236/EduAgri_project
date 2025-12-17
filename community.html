@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduAgri Communities</title>
+  <style>
+    :root {
+      --primary: #2d6a4f;
+      --primary-dark: #1b4332;
+      --secondary: #d8f3dc;
+      --accent: #ffb703;
+      --text: #333;
+      --bg: #f0f7f4;
+      --card-bg: #ffffff;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    header {
+      background: rgba(45, 106, 79, 0.95);
+      backdrop-filter: blur(10px);
+      color: white;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    nav a {
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s;
+    }
+
+    nav a:hover {
+      color: white;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Dropdown */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      position: absolute;
+      top: calc(100% + 15px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      color: var(--text);
+      min-width: 220px;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+      padding: 8px 0;
+      display: none;
+      overflow: hidden;
+      animation: slideDown 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+    }
+
+    .dropdown-content a {
+      display: block;
+      padding: 12px 20px;
+      color: var(--text);
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .dropdown-content a:hover {
+      background: var(--secondary);
+      color: var(--primary);
+    }
+
+    .dropdown-content.show {
+      display: block;
+    }
+
+    main {
+      padding: 40px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    section {
+      background: var(--card-bg);
+      padding: 30px;
+      margin-bottom: 30px;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      animation: fadeIn 0.5s ease;
+      border-left: 5px solid var(--accent);
+      transition: all 0.3s ease;
+    }
+
+    section:hover {
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+      transform: translateY(-2px);
+    }
+
+    section h2 {
+      color: var(--primary);
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+    }
+
+    section ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    section ul li a {
+      color: var(--primary-dark);
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      padding: 12px 20px;
+      background: white;
+      border-radius: 12px;
+      transition: all 0.2s ease;
+      border: 1px solid #d0e8e1;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+    }
+
+    section ul li a:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(45, 106, 79, 0.2);
+    }
+
+    .topic-section {
+      scroll-margin-top: 100px;
+      border-left: 5px solid var(--primary);
+    }
+
+    .topic-section h3 {
+      color: var(--primary-dark);
+      margin-bottom: 10px;
+      font-size: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .topic-section p {
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    .post-form {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 20px;
+      background: #f8fbfa;
+      border-radius: 16px;
+      border: 1px solid #eef;
+    }
+
+    .post-form textarea {
+      min-height: 80px;
+      resize: vertical;
+      padding: 15px;
+      border-radius: 12px;
+      border: 2px solid #e0e0e0;
+      font-family: inherit;
+      background: white;
+      transition: all 0.2s ease;
+      font-size: 1rem;
+    }
+
+    .post-form textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px var(--secondary);
+      outline: none;
+    }
+
+    .post-form button {
+      align-self: flex-end;
+      padding: 10px 24px;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .post-form button:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(45, 106, 79, 0.2);
+    }
+
+    .post-item {
+      background: white;
+      border: 1px solid #eee;
+      padding: 20px;
+      border-radius: 16px;
+      margin-top: 16px;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+    }
+
+    .post-item:hover {
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      transform: translateY(-3px);
+      border-color: var(--secondary);
+    }
+
+    .post-meta {
+      font-size: 0.9rem;
+      color: #888;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #f0f0f0;
+      padding-bottom: 10px;
+    }
+
+    .post-meta div:first-child {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .post-delete {
+      background: #fee;
+      border: none;
+      color: #e03131;
+      cursor: pointer;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      transition: 0.2s;
+    }
+
+    .post-delete:hover {
+      background: #ffdada;
+    }
+
+    .cta {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .cta a {
+      display: inline-block;
+      padding: 16px 32px;
+      background: var(--accent);
+      color: var(--text);
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1rem;
+      transition: all 0.25s ease;
+      box-shadow: 0 6px 20px rgba(255, 183, 3, 0.25);
+    }
+
+    .cta a:hover {
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 12px 30px rgba(255, 183, 3, 0.4);
+    }
+
+    footer {
+      background: #2d6a4f;
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+      margin-top: 60px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>🌾 EduAgri</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <div class="dropdown">
+        <a href="javascript:void(0)" onclick="toggleDropdown(event)">Category ▼</a>
+        <div class="dropdown-content" id="courses-dropdown">
+          <a href="soil.html">Soil Science</a>
+          <a href="irrigation.html">Irrigation Techniques</a>
+          <a href="crop.html">Crop Management</a>
+          <a href="smart.html">Smart Farming</a>
+          <a href="livestock.html">Livestock</a>
+        </div>
+      </div>
+      <a href="community.html">Community</a>
+      <a href="about.html">About</a>
+      <a href="farmers.html">Farmers</a>
+      <a href="customers.html">Customers</a>
+      <a href="my-courses.html">My Courses</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>Welcome to EduAgri Communities</h2>
+      <p>
+        A hub where learners, farmers, and researchers connect, share ideas, and grow together.
+      </p>
+    </section>
+
+    <section>
+      <h2>Discussion Groups</h2>
+      <ul>
+        <li><a href="#topic-smart">🌱 Smart Farming</a></li>
+        <li><a href="#topic-soil">🌍 Soil Science</a></li>
+        <li><a href="#topic-crop">🌾 Crop Management</a></li>
+        <li><a href="#topic-livestock">🐄 Livestock & Dairy</a></li>
+        <li><a href="#topic-agtech">⚙ Agricultural Technology</a></li>
+      </ul>
+    </section>
+
+    <!-- Topic sections (in-page anchors) -->
+    <section id="topic-smart" class="topic-section">
+      <h3>Smart Farming</h3>
+      <p>Discuss sensors, automation, IoT and data-driven farming practices.</p>
+      <div class="posts" data-topic="topic-smart"><em>No posts yet — be the first to share a tip!</em></div>
+      <form class="post-form" data-topic="topic-smart">
+        <textarea name="body" placeholder="Share a tip, question or resource..."></textarea>
+        <button type="submit">Post</button>
+      </form>
+    </section>
+
+    <section id="topic-soil" class="topic-section">
+      <h3>Soil Science</h3>
+      <p>Share soil tests, amendment strategies, and composting techniques.</p>
+      <div class="posts" data-topic="topic-soil"><em>No posts yet — start a discussion about soil health.</em></div>
+      <form class="post-form" data-topic="topic-soil">
+        <textarea name="body" placeholder="Share a soil tip or question..."></textarea>
+        <button type="submit">Post</button>
+      </form>
+    </section>
+
+    <section id="topic-crop" class="topic-section">
+      <h3>Crop Management</h3>
+      <p>Talk about crop rotation, pest control, and yield-improvement approaches.</p>
+      <div class="posts" data-topic="topic-crop"><em>No posts yet — ask a question or share an experience.</em></div>
+      <form class="post-form" data-topic="topic-crop">
+        <textarea name="body" placeholder="Share a question or success story..."></textarea>
+        <button type="submit">Post</button>
+      </form>
+    </section>
+
+    <section id="topic-livestock" class="topic-section">
+      <h3>Livestock & Dairy</h3>
+      <p>Discuss animal health, feed, and dairy best practices.</p>
+      <div class="posts" data-topic="topic-livestock"><em>No posts yet — kick off a conversation about livestock
+          care.</em></div>
+      <form class="post-form" data-topic="topic-livestock">
+        <textarea name="body" placeholder="Share livestock tips or questions..."></textarea>
+        <button type="submit">Post</button>
+      </form>
+    </section>
+
+    <section id="topic-agtech" class="topic-section">
+      <h3>Agricultural Technology</h3>
+      <p>Share tools, platforms, and innovations transforming agriculture.</p>
+      <div class="posts" data-topic="topic-agtech"><em>No posts yet — introduce a useful tool or service.</em></div>
+      <form class="post-form" data-topic="topic-agtech">
+        <textarea name="body" placeholder="Share a tool, link or idea..."></textarea>
+        <button type="submit">Post</button>
+      </form>
+    </section>
+
+    <section>
+      <h2>Events & Webinars</h2>
+      <p>Stay tuned for upcoming webinars, seminars, and local agricultural meetups!</p>
+    </section>
+
+    <section>
+      <h2>Community Stories</h2>
+      <p>Read inspiring stories from farmers, students, and innovators making a difference in agriculture.</p>
+    </section>
+
+    <div class="cta">
+      <a href="login.html">Join the EduAgri Community</a>
+    </div>
+  </main>
+
+
+
+  <footer>
+    <p>© 2025 EduAgri. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    function toggleDropdown(event) {
+      event.preventDefault();
+      const dropdown = document.getElementById('courses-dropdown');
+      dropdown.classList.toggle('show');
+    }
+    document.addEventListener('click', function (event) {
+      const dropdown = document.querySelector('.dropdown');
+      if (dropdown && !dropdown.contains(event.target)) {
+        document.getElementById('courses-dropdown').classList.remove('show');
+      }
+    });
+  </script>
+
+  <script>
+    // Community posts — simple localStorage-backed per-topic posts
+    (function () {
+      function storageKey(topic) { return 'community_posts_' + topic; }
+
+      function renderPosts(topic) {
+        var container = document.querySelector('.posts[data-topic="' + topic + '"]');
+        if (!container) return;
+        var arr = JSON.parse(localStorage.getItem(storageKey(topic)) || '[]');
+        container.innerHTML = '';
+        if (arr.length === 0) {
+          container.innerHTML = '<em>No posts yet — be the first to share a tip!</em>';
+          return;
+        }
+
+        var currentUser = localStorage.getItem('currentUser') || null;
+
+        arr.slice().reverse().forEach(function (p) {
+          var el = document.createElement('div'); el.className = 'post-item';
+          var meta = document.createElement('div'); meta.className = 'post-meta';
+
+          var left = document.createElement('div');
+          // Display User Name + Time
+          var authorName = p.author || 'Anonymous';
+          left.innerHTML = '<strong>' + authorName + '</strong> <span style="font-weight:normal; color:#aaa; margin-left:8px;">' + new Date(p.time).toLocaleString() + '</span>';
+
+          var right = document.createElement('div');
+
+          // Only show delete button if current user is the author
+          if (currentUser && p.author === currentUser) {
+            var btn = document.createElement('button');
+            btn.className = 'post-delete';
+            btn.textContent = 'Delete';
+            btn.setAttribute('data-time', p.time);
+            btn.addEventListener('click', function () { deletePost(topic, p.time); });
+            right.appendChild(btn);
+          }
+
+          meta.appendChild(left); meta.appendChild(right);
+          var body = document.createElement('div'); body.textContent = p.body;
+          el.appendChild(meta); el.appendChild(body);
+          container.appendChild(el);
+        });
+      }
+
+      function savePost(topic, body) {
+        if (!body || !body.trim()) return;
+
+        var currentUser = localStorage.getItem('currentUser');
+        if (!currentUser) {
+          alert('Please login to post comments.');
+          return;
+        }
+
+        var key = storageKey(topic);
+        var arr = JSON.parse(localStorage.getItem(key) || '[]');
+
+        arr.push({
+          time: Date.now(),
+          body: body.trim(),
+          author: currentUser // Store the author
+        });
+
+        localStorage.setItem(key, JSON.stringify(arr));
+        renderPosts(topic);
+      }
+
+      function deletePost(topic, time) {
+        var key = storageKey(topic);
+        var arr = JSON.parse(localStorage.getItem(key) || '[]');
+        arr = arr.filter(function (p) { return p.time !== time; });
+        localStorage.setItem(key, JSON.stringify(arr));
+        renderPosts(topic);
+      }
+
+      // wire forms
+      document.querySelectorAll('form.post-form').forEach(function (f) {
+        f.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var topic = f.getAttribute('data-topic');
+          var body = f.querySelector('textarea[name="body"]').value;
+          savePost(topic, body);
+          f.querySelector('textarea[name="body"]').value = ''; // Reset manually
+        });
+      });
+
+      // initial render for each topic container on the page
+      document.querySelectorAll('.posts[data-topic]').forEach(function (c) { renderPosts(c.getAttribute('data-topic')); });
+    })();
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customers - EduAgri</title>
+  <style>
+    :root {
+      --primary: #2d6a4f;
+      --primary-dark: #1b4332;
+      --secondary: #d8f3dc;
+      --accent: #ffb703;
+      --text: #333;
+      --bg: #f0f7f4;
+      --card-bg: #ffffff;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    header {
+      background: rgba(45, 106, 79, 0.95);
+      backdrop-filter: blur(10px);
+      color: white;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    nav a {
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s;
+    }
+
+    nav a:hover {
+      color: white;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      position: absolute;
+      top: calc(100% + 15px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      color: var(--text);
+      min-width: 220px;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+      padding: 8px 0;
+      display: none;
+      overflow: hidden;
+      animation: slideDown 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+    }
+
+    .dropdown-content a {
+      display: block;
+      padding: 12px 20px;
+      color: var(--text);
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .dropdown-content a:hover {
+      background: var(--secondary);
+      color: var(--primary);
+    }
+
+    .dropdown-content.show {
+      display: block;
+    }
+
+    .hero {
+      position: relative;
+      text-align: center;
+      color: white;
+      padding: 120px 20px;
+      margin-bottom: 0;
+    }
+
+    .hero h2 {
+      font-size: 2.2rem;
+      margin-bottom: 15px;
+      font-weight: 600;
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto;
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    section {
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: var(--card-bg);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      margin-bottom: 30px;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      animation: fadeIn 0.6s ease-out both;
+    }
+
+    .card h3 {
+      color: var(--primary);
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+      /* border-bottom: 2px solid var(--secondary); Removed as requested */
+      padding-bottom: 10px;
+      display: inline-block;
+    }
+
+    /* Vegetable Grid */
+    .veg-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      margin-top: 12px;
+    }
+
+    .veg-card {
+      background: white;
+      border-radius: 16px;
+      padding: 0;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid #eee;
+    }
+
+    .veg-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    .veg-header {
+      background: var(--bg);
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid #eee;
+    }
+
+    .veg-header h4 {
+      font-size: 1.4rem;
+      color: var(--primary-dark);
+      margin: 0;
+    }
+
+    .veg-body {
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .price-info {
+      background: #fcfcfc;
+      padding: 10px;
+      border-radius: 8px;
+      text-align: center;
+      border: 1px solid #f0f0f0;
+    }
+
+    .price-tag {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .price-sub {
+      font-size: 0.85rem;
+      color: #777;
+    }
+
+    .all-bids {
+      background: #fff9f0;
+      padding: 12px;
+      border-radius: 8px;
+      border-left: 4px solid var(--accent);
+      font-size: 0.9rem;
+      max-height: 120px;
+      overflow-y: auto;
+    }
+
+    .all-bids strong {
+      display: block;
+      margin-bottom: 6px;
+      color: #d48806;
+    }
+
+    .all-bids ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .all-bids li {
+      padding: 4px 0;
+      border-bottom: 1px dashed rgba(0, 0, 0, 0.05);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .all-bids li:last-child {
+      border-bottom: none;
+    }
+
+    .order-form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: auto;
+    }
+
+    .order-form input,
+    .order-form select {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      width: 100%;
+    }
+
+    .btn-action {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      width: 100%;
+      transition: 0.3s;
+    }
+
+    .btn-action:hover {
+      background: var(--primary-dark);
+    }
+
+    /* Orders List */
+    .orders-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .order-card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      border-left: 6px solid var(--primary);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .order-main {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .order-price-total {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    footer {
+      background: var(--primary-dark);
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+      margin-top: 60px;
+    }
+
+    /* Toast / non-blocking notification */
+    .toast-container {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 9999;
+      pointer-events: none;
+    }
+
+    .toast {
+      background: rgba(30, 30, 30, 0.95);
+      backdrop-filter: blur(5px);
+      color: #fff;
+      padding: 16px 20px;
+      border-radius: 12px;
+      min-width: 250px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      animation: slideDown 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 500;
+      border-left: 4px solid var(--accent);
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>🌾 EduAgri</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <div class="dropdown">
+        <a href="javascript:void(0)" onclick="toggleDropdown(event)">Category ▼</a>
+        <div class="dropdown-content" id="courses-dropdown">
+          <a href="soil.html">Soil Science</a>
+          <a href="irrigation.html">Irrigation Techniques</a>
+          <a href="crop.html">Crop Management</a>
+          <a href="smart.html">Smart Farming</a>
+          <a href="livestock.html">Livestock</a>
+        </div>
+      </div>
+      <a href="community.html">Community</a>
+      <a href="about.html">About</a>
+      <a href="farmers.html">Farmers</a>
+      <a href="customers.html">Customers</a>
+      <a href="my-courses.html">My Courses</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <div class="hero"
+    style="background: linear-gradient(rgba(45,106,79,0.7), rgba(45,106,79,0.7)), url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;">
+    <h2>Buy Direct From Farmers</h2>
+    <p>Browse local farmers and order fresh produce directly.</p>
+  </div>
+
+  <section>
+    <div class="card" id="role-check-message" style="display:none; background:#fff3cd; border-left:4px solid #ffc107;">
+      <p style="color:#856404; font-weight:600;"></p>
+    </div>
+
+    <div id="customer-content">
+      <div class="card"
+        style="background:transparent; box-shadow:none; padding:0; margin-bottom:40px; margin-top: 40px;">
+        <h3
+          style="background:#fff; padding:15px; border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.05); display:inline-block;">
+          🛒 Vegetable Market</h3>
+        <p style="margin-top:10px; color:#666; font-size:1.1rem;">Buy fresh directly from farmers. Best prices
+          guaranteed!</p>
+        <div id="veg-shop-container" style="min-height:200px;">Loading vegetables...</div>
+      </div>
+
+      <div class="card">
+        <h3>📦 Your Orders</h3>
+        <ul id="customer-orders" class="orders-list"></ul>
+      </div>
+    </div>
+    </div>
+  </section>
+
+
+
+  <footer>
+    <p>© 2025 EduAgri. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    // Initialize vegetables
+    function initializeVegetables() {
+      if (!localStorage.getItem('availableVegetables')) {
+        const vegetables = [
+          { id: 'v1', name: 'Tomato', unit: 'kg' },
+          { id: 'v2', name: 'Potato', unit: 'kg' },
+          { id: 'v3', name: 'Onion', unit: 'kg' },
+          { id: 'v4', name: 'Carrot', unit: 'kg' },
+          { id: 'v5', name: 'Broccoli', unit: 'kg' }
+        ];
+        localStorage.setItem('availableVegetables', JSON.stringify(vegetables));
+      }
+    }
+
+    // Get average price per vegetable
+    function getAveragePricePerVegetable() {
+      const allBids = JSON.parse(localStorage.getItem('farmerBids')) || [];
+      const vegetables = JSON.parse(localStorage.getItem('availableVegetables')) || [];
+
+      const avgPricesPerVeg = {};
+
+      vegetables.forEach(veg => {
+        const bidsForVeg = allBids.filter(bid =>
+          bid.vegetableId === veg.id &&
+          bid.quantityRemaining > 0
+        );
+
+        if (bidsForVeg.length > 0) {
+          const totalPrice = bidsForVeg.reduce((sum, bid) => sum + bid.pricePerKg, 0);
+          const avgPrice = (totalPrice / bidsForVeg.length).toFixed(2);
+
+          avgPricesPerVeg[veg.id] = {
+            vegetable: veg,
+            averagePrice: avgPrice,
+            farmerCount: bidsForVeg.length,
+            allBids: bidsForVeg,
+            totalAvailable: bidsForVeg.reduce((sum, bid) => sum + bid.quantityRemaining, 0)
+          };
+        }
+      });
+
+      return avgPricesPerVeg;
+    }
+
+    // Display vegetables with average prices
+    function displayVegetableShop() {
+      const avgPrices = getAveragePricePerVegetable();
+      let html = '';
+
+      const vegData = Object.values(avgPrices);
+      if (vegData.length === 0) {
+        html = '<p style="color:#999; text-align:center; padding:40px;">No vegetables available with active farmer bids. Farmers need to create bids first!</p>';
+      } else {
+        html = '<div class="veg-grid">';
+        vegData.forEach(data => {
+          const veg = data.vegetable;
+          const avgPrice = data.averagePrice;
+          const farmerCount = data.farmerCount;
+          const allBids = data.allBids;
+          const totalAvailable = data.totalAvailable;
+
+          html += `
+            <div class="veg-card">
+              <div class="veg-header">
+                <h4>${veg.name}</h4>
+              </div>
+              <div class="veg-body">
+                <div class="price-info">
+                  <div class="price-tag">₹${avgPrice}</div>
+                  <div class="price-sub">Average / ${veg.unit}</div>
+                  <div style="font-size:0.85rem; margin-top:6px; color:#666;">
+                    ${farmerCount} Farmers • ${totalAvailable}${veg.unit} Available
+                  </div>
+                </div>
+
+                <div class="all-bids">
+                  <strong>Available Options:</strong>
+                  <ul>
+                    ${allBids.map(bid =>
+            `<li>
+                         <span>₹${bid.pricePerKg} - ${bid.farmerName}</span>
+                         <span>${bid.quantityRemaining}${veg.unit}</span>
+                       </li>`
+          ).join('')}
+                  </ul>
+                </div>
+
+                <form class="order-form" onsubmit="orderFromBid(event)">
+                  <input type="number" name="qty" min="0.1" step="0.1" max="${totalAvailable}" 
+                         placeholder="Qty needed (${veg.unit})" required>
+                  <select name="selectedBidId" required>
+                    <option value="">-- Select Farmer --</option>
+                    ${allBids.map(bid =>
+            `<option value="${bid.bidId}">₹${bid.pricePerKg} - ${bid.farmerName}</option>`
+          ).join('')}
+                  </select>
+                  <button type="submit" class="btn-action">Place Order</button>
+                </form>
+              </div>
+            </div>
+          `;
+        });
+        html += '</div>';
+      }
+
+      document.getElementById('veg-shop-container').innerHTML = html;
+    }
+
+    // Place order from bid
+    function orderFromBid(event) {
+      event.preventDefault();
+
+      const customerId = localStorage.getItem('currentUser');
+      if (!customerId) {
+        showToast('Please log in first!');
+        return;
+      }
+
+      const quantity = parseFloat(event.target.qty.value);
+      const selectedBidId = event.target.selectedBidId.value;
+
+      let bids = JSON.parse(localStorage.getItem('farmerBids')) || [];
+      const bid = bids.find(b => b.bidId === selectedBidId);
+
+      if (!bid || bid.quantityRemaining < quantity) {
+        showToast('Not enough quantity available!', 4500);
+        return;
+      }
+
+      // Create order
+      const newOrder = {
+        orderId: 'order_' + Date.now(),
+        customerId: customerId,
+        bidId: bid.bidId,
+        farmerId: bid.farmerId,
+        farmerName: bid.farmerName,
+        vegetableId: bid.vegetableId,
+        vegetableName: bid.vegetableName,
+        quantity: quantity,
+        pricePerKg: bid.pricePerKg,
+        totalPrice: (quantity * bid.pricePerKg).toFixed(2)
+      };
+
+      // Update bid: reduce remaining quantity
+      bid.quantityRemaining -= quantity;
+
+      // Store order and update bid
+      let orders = JSON.parse(localStorage.getItem('customerOrdersFromBids')) || [];
+      orders.push(newOrder);
+      localStorage.setItem('customerOrdersFromBids', JSON.stringify(orders));
+      localStorage.setItem('farmerBids', JSON.stringify(bids));
+
+      showToast(`Order placed! ${newOrder.quantity}kg ${newOrder.vegetableName} for ₹${newOrder.totalPrice} ✅`, 4500);
+      displayVegetableShop();
+      displayCustomerOrders();
+    }
+
+    // Display customer's orders
+    function displayCustomerOrders() {
+      const customerId = localStorage.getItem('currentUser');
+      const allOrders = JSON.parse(localStorage.getItem('customerOrdersFromBids')) || [];
+      const myOrders = allOrders.filter(o => o.customerId === customerId);
+
+      const ordersEl = document.getElementById('customer-orders');
+      ordersEl.innerHTML = '';
+
+      if (myOrders.length === 0) {
+        ordersEl.innerHTML = '<li style="color:#999;">No orders yet. Browse vegetables above!</li>';
+      } else {
+        myOrders.forEach(order => {
+          const li = document.createElement('li');
+          li.innerHTML = `
+            <div class="order-card">
+              <div class="order-main">
+                <strong>${order.vegetableName} - ${order.quantity}kg</strong>
+                <small style="color:#666;">Seller: ${order.farmerName}</small>
+                <small style="color:#888;">Order #${order.orderId.substr(-6)}</small>
+              </div>
+              <div class="order-price-total">
+                 ₹${order.totalPrice}
+              </div>
+            </div>
+          `;
+          ordersEl.appendChild(li);
+        });
+      }
+    }
+
+    // Load on page load
+    window.addEventListener('load', function () {
+      const userRole = localStorage.getItem('userRole') || 'customer';
+      const customerContent = document.getElementById('customer-content');
+      const roleCheckMessage = document.getElementById('role-check-message');
+
+      if (userRole !== 'customer') {
+        // User is not a customer
+        roleCheckMessage.style.display = 'block';
+        roleCheckMessage.querySelector('p').textContent = '⚠️ This page is for customers only. Please login with your customer account to browse and order vegetables.';
+        customerContent.style.display = 'none';
+      } else {
+        // User is a customer
+        roleCheckMessage.style.display = 'none';
+        customerContent.style.display = 'block';
+        initializeVegetables();
+        displayVegetableShop();
+        displayCustomerOrders();
+      }
+    });
+  </script>
+  <script>
+    // Cleanup old tomato/potato data once
+    (function cleanupOldData() {
+      if (localStorage.getItem('cleaned_v1_v2')) return;
+
+      try {
+        let bids = JSON.parse(localStorage.getItem('farmerBids') || '[]');
+        let orders = JSON.parse(localStorage.getItem('customerOrdersFromBids') || '[]');
+
+        // Filter out tomato (v1) and potato (v2) to remove "from before"
+        let initialLen = bids.length + orders.length;
+        bids = bids.filter(function (b) { return b.vegetableId !== 'v1' && b.vegetableId !== 'v2'; });
+        orders = orders.filter(function (o) { return o.vegetableId !== 'v1' && o.vegetableId !== 'v2'; });
+
+        if (bids.length + orders.length < initialLen) {
+          console.log('Cleaned up old Tomato/Potato entries.');
+        }
+
+        localStorage.setItem('farmerBids', JSON.stringify(bids));
+        localStorage.setItem('customerOrdersFromBids', JSON.stringify(orders));
+        localStorage.setItem('cleaned_v1_v2', 'true');
+      } catch (e) {
+        console.error('Error cleaning old data', e);
+      }
+    })();
+
+    // Non-blocking toast notifications to replace alert()
+    function showToast(message, duration) {
+      duration = duration || 4500;
+      var container = document.getElementById('toast-container');
+      if (!container) return console.log(message);
+      var t = document.createElement('div');
+      t.className = 'toast';
+      // preserve simple newlines
+      t.innerHTML = message.split('\n').map(function (line) { return '<div>' + line + '</div>'; }).join('');
+      container.appendChild(t);
+      setTimeout(function () { t.style.opacity = '0'; t.style.transform = 'translateY(6px)'; }, duration - 300);
+      setTimeout(function () { try { container.removeChild(t); } catch (e) { } }, duration);
+    }
+  </script>
+  <script>
+    function toggleDropdown(event) {
+      event.preventDefault();
+      const dropdown = document.getElementById('courses-dropdown');
+      dropdown.classList.toggle('show');
+    }
+    document.addEventListener('click', function (event) {
+      const dropdown = document.querySelector('.dropdown');
+      if (dropdown && !dropdown.contains(event.target)) {
+        document.getElementById('courses-dropdown').classList.remove('show');
+      }
+    });
+  </script>
+
+</body>
+
+</html>

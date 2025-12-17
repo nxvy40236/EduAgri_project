@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - EduAgri</title>
+  <style>
+    :root {
+      --primary: #2d6a4f;
+      --primary-dark: #1b4332;
+      --secondary: #d8f3dc;
+      --accent: #ffb703;
+      --text: #333;
+      --bg: #f0f7f4;
+      --card-bg: #ffffff;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    header {
+      background: rgba(45, 106, 79, 0.95);
+      backdrop-filter: blur(10px);
+      color: white;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+      font-weight: 600;
+      font-size: 1.5rem;
+      letter-spacing: -0.5px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    nav a {
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s;
+    }
+
+    nav a:hover {
+      color: white;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      position: absolute;
+      top: calc(100% + 15px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      color: var(--text);
+      min-width: 220px;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+      padding: 8px 0;
+      display: none;
+      overflow: hidden;
+      animation: slideDown 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+    }
+
+    .dropdown-content a {
+      display: block;
+      padding: 12px 20px;
+      color: var(--text);
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .dropdown-content a:hover {
+      background: var(--secondary);
+      color: var(--primary);
+    }
+
+    .dropdown-content.show {
+      display: block;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    section {
+      background: var(--card-bg);
+      max-width: 900px;
+      margin: 0 auto 40px;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      animation: fadeIn 0.5s ease;
+      border-left: 5px solid var(--accent);
+    }
+
+    section h2 {
+      color: var(--primary);
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+    }
+
+    .team {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .member {
+      background: white;
+      padding: 30px 20px;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      width: 240px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .member:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    .member img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 15px;
+      border: 4px solid var(--secondary);
+      transition: border-color 0.3s;
+    }
+
+    .member:hover img {
+      border-color: var(--accent);
+    }
+
+    .member h3 {
+      color: var(--primary-dark);
+      font-size: 1.2rem;
+    }
+
+    footer {
+      background: #2d6a4f;
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+      margin-top: 30px;
+      animation: fadeIn 0.6s ease;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>🌾 EduAgri</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <div class="dropdown">
+        <a href="javascript:void(0)" onclick="toggleDropdown(event)">Category ▼</a>
+        <div class="dropdown-content" id="courses-dropdown">
+          <a href="soil.html">Soil Science</a>
+          <a href="irrigation.html">Irrigation Techniques</a>
+          <a href="crop.html">Crop Management</a>
+          <a href="smart.html">Smart Farming</a>
+          <a href="livestock.html">Livestock</a>
+        </div>
+      </div>
+      <a href="community.html">Community</a>
+      <a href="about.html">About</a>
+      <a href="farmers.html">Farmers</a>
+      <a href="customers.html">Customers</a>
+      <a href="my-courses.html">My Courses</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Existing Content -->
+    <section>
+      <h2>Our Mission</h2>
+      <p>
+        To empower farmers, students, and agri-entrepreneurs by democratizing access to cutting-edge agricultural
+        knowledge.
+        We strive to bridge the gap between traditional farming wisdom and modern technological advancements, ensuring
+        that
+        sustainable practices are accessible to everyone, everywhere.
+      </p>
+    </section>
+
+    <section>
+      <h2>Our Vision</h2>
+      <p>
+        To cultivate a global community where agriculture thrives on innovation and sustainability.
+        We envision a future where every farmer is equipped with the tools and knowledge to feed the planet,
+        restore the earth, and build a prosperous, resilient food system for generations to come.
+      </p>
+    </section>
+
+    <section>
+      <h2>Our Values</h2>
+      <p>Innovation, Sustainability, Community, and Knowledge Sharing.</p>
+    </section>
+
+    <!-- New Creators Section -->
+    <section>
+      <h2>Meet the Creators</h2>
+      <div class="team">
+        <div class="member">
+          <img src="vaishu.jpg" alt="Creator 1">
+          <h3>Vaishnavi Battina</h3>
+        </div>
+        <div class="member">
+          <img src="Nivedha.jpg" alt="Creator 2">
+          <h3>Nivedha U</h3>
+        </div>
+        <div class="member">
+          <img src="MAHES.jpg" alt="Creator 3">
+          <h3>Maheswari M</h3>
+        </div>
+      </div>
+    </section>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="communities.html">Communities</a>
+    </nav>
+  </main>
+
+
+  <footer>
+    <p>© 2025 EduAgri. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    function toggleDropdown(event) {
+      event.preventDefault();
+      const dropdown = document.getElementById('courses-dropdown');
+      dropdown.classList.toggle('show');
+    }
+    document.addEventListener('click', function (event) {
+      const dropdown = document.querySelector('.dropdown');
+      if (dropdown && !dropdown.contains(event.target)) {
+        document.getElementById('courses-dropdown').classList.remove('show');
+      }
+    });
+  </script>
+</body>
+
+</html>
